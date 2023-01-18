@@ -9,6 +9,11 @@
  *    Released by TRON Forum(http://www.tron.org) at 2020/10.
  *
  *----------------------------------------------------------------------
+ *    Modified by UC Technology at 2022/12/07
+ *    Modified by UC Technology at 2023/01/17
+ * 
+ *    Copyright (c) 2022-2023 UC Technology. All Rights Reserved.
+ *----------------------------------------------------------------------
  */
 
 /*
@@ -51,7 +56,11 @@ SYSCALL ID tk_cre_tsk( CONST T_CTSK *pk_ctsk )
 #endif
 	CHECK_PRI(pk_ctsk->itskpri);
 
-	sstksz = pk_ctsk->stksz + DEFAULT_SYS_STKSZ;
+	if ( (pk_ctsk->tskatr & TA_USERBUF) != 0 ) {
+		sstksz = pk_ctsk->stksz;
+	}else{
+		sstksz = pk_ctsk->stksz + DEFAULT_SYS_STKSZ;
+	}
 	CHECK_PAR(sstksz >= MIN_SYS_STACK_SIZE);
 
 	if ( (pk_ctsk->tskatr & TA_USERBUF) != 0 ) {

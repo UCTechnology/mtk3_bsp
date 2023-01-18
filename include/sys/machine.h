@@ -9,6 +9,11 @@
  *    Released by TRON Forum(http://www.tron.org) at 2022/04.
  *
  *----------------------------------------------------------------------
+ *    Modified by UC Technology at 2022/12/07
+ *    Modified by UC Technology at 2023/01/17
+ * 
+ *    Copyright (c) 2022-2023 UC Technology. All Rights Reserved.
+ *----------------------------------------------------------------------
  */
 
 /*
@@ -42,7 +47,7 @@
 #define Csym(sym) sym
 #endif
 
-/* ----- μT-Kernel BSP ------------------------------------------------- */
+/* ----- micro T-Kernel BSP -------------------------------------------- */
 #ifdef _NUCLEO_L476_
 #include "sysdepend/nucleo_l476/machine.h"
 #define Csym(sym) sym
@@ -63,6 +68,10 @@
 #define Csym(sym) _##sym
 #endif
 
+#ifdef _CY8CKIT_CY8C6_
+#include "sysdepend/cy8ckit_cy8c6/machine.h"
+#define Csym(sym) sym
+#endif
 
 /* ===== C compiler dependencies definitions ============================= */
 
