@@ -10,7 +10,14 @@ source
 ######
 
 deps
+
+# Documentation
 images
+
+# Exports, Project settings
+.mtbLaunchConfigs
+.settings
+.vscode
 
 # Exclude uT-Kernel 3.0 makefiles & documents
 mtkernel_3/build_make
