@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -100,7 +100,7 @@ EXPORT ER StartPhysicalTimer( UINT ptmrno, UW limit, UINT mode)
 		SetPERI(p_cb->intno, INTFN_CMIA(ptmrno));	// Set PERIB
 	} else {
 		out_b(TMR_TCR, TCR_OVIE);			// Enable OVIn
-		SetPERI(p_cb->intno, INTFN_OVI(ptmrno));		// Set PERIB
+		SetPERI(p_cb->intno, INTFN_OVI(ptmrno));	// Set PERIB
 	}
 
 	/* Register interrupt handler */
