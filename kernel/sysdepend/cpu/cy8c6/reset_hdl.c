@@ -1,16 +1,17 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  *    Modified by UC Technology at 2022/12/07
  *    Modified by UC Technology at 2023/01/17
+ *    Modified by UC Technology at 2023/02/01
  * 
  *    Copyright (c) 2022-2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
@@ -20,7 +21,7 @@
 #ifdef CPU_CORE_ARMV7M
 
 /*
- *	reset_hdr.c (ARMv7-M)
+ *	reset_hdl.c (ARMv7-M)
  *	Reset handler
  */
 
@@ -114,9 +115,6 @@ EXPORT void Reset_Handler(void)
 	
 	*(_UW*)SCB_SHPR2 = SCB_SHPR2_VAL;		// SVC pri = 0
 	*(_UW*)SCB_SHPR3 = SCB_SHPR3_VAL;		// SysTick = 1 , PendSV = 7
-
-	/* Allow user to access SCB_STIR */
-	*(_UW*)SCB_CCR |= CCR_USERSETMPEND;
 
 #if USE_FPU
 	/* Enable FPU */
