@@ -1,6 +1,6 @@
-﻿/*
+/*
  *----------------------------------------------------------------------
- *    Device Driver for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -8,6 +8,11 @@
  *
  *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the SBK-M4KN.
+ *    Modified by UC Technology at 2023/03/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 
@@ -65,6 +70,7 @@ typedef struct {
 	/* Intrrupt */
 	UINT	intno_rcv;	/* Receive interrupt number */
 	UINT	intno_snd;	/* Send interrupt number */
+	UINT	intno_err;	/* Error interrupt number */
 	UINT	int_pri;	/* Interrupt priority */
 
 	/* Communication data buffer */

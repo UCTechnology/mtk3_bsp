@@ -1,13 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the SBK-M4KN.
+ *    Modified by UC Technology at 2023/03/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 
@@ -15,7 +20,7 @@
 #ifdef CPU_CORE_ARMV7M
 
 /*
- *	reset_hdr.c (ARMv7-M)
+ *	reset_hdl.c (ARMv7-M)
  *	Reset handler
  */
 
@@ -24,21 +29,17 @@
 
 #include <tm/tmonitor.h>
 
-
 /* Low level memory manager information */
 EXPORT	void	*knl_lowmem_top;		// Head of area (Low address)
 EXPORT	void	*knl_lowmem_limit;		// End of area (High address)
 
-IMPORT	const void *__data_org;
-IMPORT	const void *__data_start;
-IMPORT	const void *__data_end;
-IMPORT	const void *__bss_start;
-IMPORT	const void *__bss_end;
-#if USE_NOINIT
-IMPORT	const void *__noinit_end;
-#endif
-
+#pragma location = ".intvec"
 IMPORT const void (*vector_tbl[])();
+
+#pragma section=".data_init"
+#pragma section=".data"
+#pragma section=".bss"
+#pragma section=".noinit"
 
 EXPORT void Reset_Handler(void)
 {
@@ -49,9 +50,17 @@ EXPORT void Reset_Handler(void)
 	/* Startup Hardware */
 	knl_startup_hw();
 
+	const void* __data_org = __section_begin(".data_init");
+
+	const void* __data_start = __section_begin(".data");
+	const void* __data_end = __section_end(".data");
+	
+	const void* __bss_start = __section_begin(".bss");
+	const void* __bss_end = __section_end(".bss");
+
 #if !USE_STATIC_IVT
 	/* Load Vector Table from ROM to RAM */
-	src = (UW*)vector_tbl;;
+	src = (UW*)vector_tbl;
 	top = (UW*)exchdr_tbl;
 
 	for(i=0; i < ((N_SYSVEC + N_INTVEC)); i++) {
@@ -63,20 +72,21 @@ EXPORT void Reset_Handler(void)
 #endif
 
 	/* Load .data to ram */
-	src = (UW*)&__data_org;;
-	top = (UW*)&__data_start;
-	end = (UW*)&__data_end;
+	src = (UW*)__data_org;
+	top = (UW*)__data_start;
+	end = (UW*)__data_end;
 	while(top != end) {
 		*top++ = *src++;
 	}
 
 	/* Initialize .bss */
 #if USE_NOINIT
-	top = (UW*)&__noinit_end;
+	const void* __noinit_end = __section_end(".noinit");
+	top = (UW*)__noinit_end;
 #else 
-	top = (UW*)&__bss_start;
+	top = (UW*)__bss_start;
 #endif
-	for(i = ((INT)&__bss_end - (INT)&__bss_start)/sizeof(UW); i > 0 ; i--) {
+	for(i = ((INT)__bss_end - (INT)top)/sizeof(UW); i > 0 ; i--) {
 		*top++ = 0;
 	}
 
@@ -87,8 +97,8 @@ EXPORT void Reset_Handler(void)
 	} else {
 		knl_lowmem_top = (UW*)SYSTEMAREA_TOP;
 	}
-	if((UW)knl_lowmem_top < (UW)&__bss_end) {
-		knl_lowmem_top = (UW*)&__bss_end;
+	if((UW)knl_lowmem_top < (UW)__bss_end) {
+		knl_lowmem_top = (UW*)__bss_end;
 	}
 
 	if((SYSTEMAREA_END != 0) && (INTERNAL_RAM_END > CNF_SYSTEMAREA_END)) {
@@ -105,9 +115,6 @@ EXPORT void Reset_Handler(void)
 	
 	*(_UW*)SCB_SHPR2 = SCB_SHPR2_VAL;		// SVC pri = 0
 	*(_UW*)SCB_SHPR3 = SCB_SHPR3_VAL;		// SysTick = 1 , PendSV = 7
-
-	/* Allow user to access SCB_STIR */
-	*(_UW*)SCB_CCR |= CCR_USERSETMPEND;
 
 #if USE_FPU
 	/* Enable FPU */

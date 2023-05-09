@@ -9,6 +9,11 @@
  *    Released by TRON Forum(http://www.tron.org) at 2022/04.
  *
  *----------------------------------------------------------------------
+ *    Modifications: Adapted to the SBK-M4KN.
+ *    Modified by UC Technology at 2023/03/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
+ *----------------------------------------------------------------------
  */
 
 /*
@@ -42,7 +47,7 @@
 #define Csym(sym) sym
 #endif
 
-/* ----- μT-Kernel BSP ------------------------------------------------- */
+/* ----- micro T-Kernel BSP --------------------------------------------- */
 #ifdef _NUCLEO_L476_
 #include "sysdepend/nucleo_l476/machine.h"
 #define Csym(sym) sym
@@ -63,20 +68,18 @@
 #define Csym(sym) _##sym
 #endif
 
+#ifdef _SBK_M4KN_
+#include "sysdepend/sbk_m4kn/machine.h"
+#define Csym(sym) sym
+#endif
 
-/* ===== C compiler dependencies definitions ============================= */
+/* ===== C compiler dependencies definitions ============================ */
+#define Inline			static inline
+#define Asm			__asm
+#define Noinit(decl)		__no_init decl
+#define WEAK_FUNC		__weak
 
-#ifdef __GNUC__
-
-#define Inline static __inline__
-#define Asm __asm__ volatile
-#define Noinit(decl) decl __attribute__((section(".noinit")))
-#define	Section(decl,name) decl __attribute__((section(#name)))
-#define WEAK_FUNC __attribute__((weak))
-
-#define _VECTOR_ENTRY(name) .word name
-#define _WEAK_ENTRY(name) .weak name
-
-#endif /* __GNUC__ */
+#define _VECTOR_ENTRY(name)	DCD	name
+#define _WEAK_ENTRY(name)	PUBWEAK	name
 
 #endif /* __SYS_MACHINE_H__ */

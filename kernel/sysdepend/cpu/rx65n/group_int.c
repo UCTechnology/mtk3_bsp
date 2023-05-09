@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -84,6 +84,8 @@ EXPORT void knl_group_inthdr(UW intno)
 			gint_hdr = gint_tbl[hdrno + i];
 			if(gint_hdr != NULL) {
 				(*gint_hdr)(INTNO_GROUP_TOP + hdrno + i);
+			} else {
+				Default_Handler(intno);
 			}
 		}
 	}

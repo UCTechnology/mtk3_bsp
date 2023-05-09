@@ -1,13 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the SBK-M4KN.
+ *    Modified by UC Technology at 2023/03/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 
@@ -244,6 +249,7 @@ IMPORT void knl_return_inthdr(void);
 /*
  * Device Driver Startup / Finalization (devinit.c)
  */
+IMPORT void set_port_func(INT port, INT no, UW func, UW inout);
 IMPORT ER knl_init_device( void );
 IMPORT ER knl_start_device( void );
 IMPORT ER knl_finish_device( void );
