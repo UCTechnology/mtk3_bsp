@@ -10,6 +10,7 @@ Please download from the following branch for each development board.
 
 | Branch | CPU | Board | Development environment |
 | --- | ----------------------- | ------ | -------- |
+| ewarm-sbk_m4mn | TMPM4MNFYAFG | SBK-M4KN(ES) | EWARM |
 | ewarm-sbk_m4kn | TMPM4MNFYAFG | SBK-M4KN(ES) | EWARM |
 | nucleo_stm32l476 | STM32L476 | Nucleo-64 | STM32CubeIDE |
 | nucleo_stm32h723 | STM32H723 | Nucleo-144 | STM32CubeIDE |
@@ -32,7 +33,8 @@ T-License2.2の内容は以下をご覧ください。
 
 本リポジトリの以下のブランチには、UCTが開発したソースコードが含まれます。
 
-- ewarm-sbk_m4kn : SBK-M4KN用ボードサポートパッケージ
+- ewarm-sbk_m4mn : SBK-M4KN用ボードサポートパッケージ (CPU:TMPM4MNFYAFG)
+- ewarm-sbk_m4kn : SBK-M4KN用ボードサポートパッケージ (CPU:TMPM4KNFYAFG)
 
 UCTは、UCTが開発したソースコードを含めて、本リポジトリに含まれるソースコードについてT-License2.2第３条第3項に定める利用を認めます。ただし、UCTが開発したソースコードについて、T-License2.2第３条第3項の第４号、第５号における有償での再配布は認めません。
 

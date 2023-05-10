@@ -11,6 +11,8 @@
  *----------------------------------------------------------------------
  *    Modifications: Adapted to the SBK-M4KN.
  *    Modified by UC Technology at 2023/03/27.
+ *    Modifications: Adapted to the SBK-M4MN.
+ *    Modified by UC Technology at 2023/03/27.
  *
  *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
@@ -70,6 +72,11 @@
 
 #ifdef _SBK_M4KN_
 #include "sysdepend/sbk_m4kn/machine.h"
+#define Csym(sym) sym
+#endif
+
+#ifdef _SBK_M4MN_
+#include "sysdepend/sbk_m4mn/machine.h"
 #define Csym(sym) sym
 #endif
 

@@ -1,0 +1,15 @@
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1_2\arm\bin\armPROC.dll" 
+
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1_2\arm\bin\armJET.dll" 
+
+"C:\home\yura\_PROJECTS\uT3\uct_mtk3_bsp\ide\iar\sbk_m4mn_serial\Debug\Exe\sbk_m4mn.out" 
+
+--plugin="C:\Program Files\IAR Systems\Embedded Workbench 9.1_2\arm\bin\armbat.dll" 
+
+--device_macro="C:\Program Files\IAR Systems\Embedded Workbench 9.1_2\arm/config/debugger/Toshiba/TMPM4MNx.dmac" 
+
+--flash_loader="C:\Program Files\IAR Systems\Embedded Workbench 9.1_2\arm/config/flashloader/Toshiba/FlashTMPM4MxFYx.board" 
+
+
+
+
