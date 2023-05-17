@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -51,7 +51,7 @@ EXPORT FP knl_hll_inthdr_ram[N_INTVEC0] __attribute__ ((section (".data_hvector"
 #if !USE_STATIC_IVT
 EXPORT ER knl_define_inthdr( INT intno, ATR intatr, FP inthdr )
 {
-#if USE_GROUP_INT	// Group INterrupt
+#if USE_GROUP_INT	// Group Interrupt
 	if(intno >= INTNO_GROUP_TOP) {
 		if( (intatr & TA_HLNG) != 0 ) {
 			return knl_define_gint( intno, inthdr);

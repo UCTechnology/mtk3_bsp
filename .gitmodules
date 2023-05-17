@@ -1,0 +1,6 @@
+[submodule "lib/liblwip/lwip"]
+	path = lib/liblwip/lwip
+	url = https://github.com/lwip-tcpip/lwip.git
+[submodule "device/common/sysdepend/stm32l4"]
+	path = device/common/sysdepend/stm32l4
+	url = https://github.com/STMicroelectronics/STM32CubeL4.git

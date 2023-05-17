@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -50,6 +50,7 @@ IMPORT ER SetPERI(UINT intno, UINT fctno);	/* Set Software Configurable Interrup
 IMPORT void knl_enable_gint( UINT intno);
 IMPORT void knl_disable_gint( UINT intno);
 IMPORT void knl_clear_gint( UINT intno);
+IMPORT BOOL knl_check_gint( UINT intno);
 
 #endif /* USE_GROUP_INT */
 

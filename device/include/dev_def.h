@@ -41,11 +41,18 @@
 #define DEV_IIC_ENABLE		0
 #endif	/* DEVCNF_USE_IIC */
 
+#if DEVCNF_USE_NET && DEV_NET_UNITNM	/* Use Ethernet communication device */
+#define DEV_NET_ENABLE		1
+#else
+#define DEV_NET_ENABLE		0
+#endif	/* DEVCNF_USE_NET */
+
 #else				/* Do not use sample device driver */
 
 #define DEV_SER_ENABLE		0		// Serial communication device 
 #define DEV_ADC_ENABLE		0		// A/D conversion device
 #define DEV_IIC_ENABLE		0		// I2C communication device
+#define DEV_NET_ENABLE		0		// Ethernet communication device
 
 #endif	/* USE_SDEV_DRV */
 #endif	/* __DEVINC_DEVICE_H__ */

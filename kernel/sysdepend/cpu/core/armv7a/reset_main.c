@@ -1,6 +1,6 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2021 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -52,7 +52,7 @@ EXPORT void reset_main(void)
 
 	/* Load .data to ram */
 
-	src = (UW*)&_data_org;;
+	src = (UW*)&_data_org;
 	top = (UW*)&_data_start;
 	end = (UW*)&_data_end;
 	while(top < end) {

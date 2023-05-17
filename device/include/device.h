@@ -35,5 +35,9 @@
 #include "dev_i2c.h"
 #endif	/* DEVCNF_USE_IIC */
 
+#if DEVCNF_USE_NET		/* Use Ethernet communication device */
+#include "dev_net.h"
+#endif	/* DEVCNF_USE_NET */
+
 #endif	/* USE_SDEV_DRV */
 #endif	/* __DEVINC_DEVICE_H__ */
