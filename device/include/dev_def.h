@@ -43,7 +43,7 @@
 
 #else				/* Do not use sample device driver */
 
-#define DEV_SER_ENABLE		0		// Serial communication device 
+#define DEV_SER_ENABLE		1		// Serial communication device 
 #define DEV_ADC_ENABLE		0		// A/D conversion device
 #define DEV_IIC_ENABLE		0		// I2C communication device
 

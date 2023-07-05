@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -48,7 +48,10 @@
 #define SYSTEM_SCKCR3	(0x00080026)
 #define SYSTEM_PLLCR	(0x00080028)
 #define SYSTEM_PLLCR2	(0x0008002A)
+#define SYSTEM_UPLLCR	(0x0008002C)
+#define SYSTEM_UPLLCR2	(0x0008002E)
 #define SYSTEM_BCKCR	(0x00080030)
+#define SYSTEM_MEMWAIT	(0x00080031)
 #define SYSTEM_MOSCCR	(0x00080032)
 #define SYSTEM_SOSCCR	(0x00080033)
 #define SYSTEM_LOCOCR	(0x00080034)
@@ -58,6 +61,8 @@
 #define SYSTEM_OSCOVFSR	(0x0008003C)
 #define SYSTEM_OSTDCR	(0x00080040)
 #define SYSTEM_OSTDSR	(0x00080041)
+#define SYSTEM_OPCCR	(0x000800A0)
+#define	SYSTEM_RSTCKCR	(0x000800A1)
 #define SYSTEM_MOSCWTCR	(0x000800A2)
 #define SYSTEM_SOSCWTCR	(0x000800A3)
 #define SYSTEM_ROMWT	(0x0008101C)

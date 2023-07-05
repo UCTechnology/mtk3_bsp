@@ -46,6 +46,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
 /*
  * Interrupt Control (interrupt.c)
  */
+#pragma location = ".data_vector"
 IMPORT	UW exchdr_tbl[];			/* Exception handler table (RAM) */
 
 IMPORT void knl_systim_inthdr(void);		/* System-timer Interrupt handler */

@@ -63,6 +63,11 @@
 #define Csym(sym) _##sym
 #endif
 
+#ifdef _ADBUN_TMPM3HQF10B_
+#include "sysdepend/adbun_tmpm3hqf10b/machine.h"
+#define Csym(sym) sym
+#endif
+
 
 /* ===== C compiler dependencies definitions ============================= */
 
@@ -76,6 +81,12 @@
 
 #define _VECTOR_ENTRY(name) .word name
 #define _WEAK_ENTRY(name) .weak name
+
+#elif (defined __ICCARM__)
+#define Inline		inline
+#define Asm		__asm
+#define Noinit(decl)	__no_init decl
+#define WEAK_FUNC __weak
 
 #endif /* __GNUC__ */
 

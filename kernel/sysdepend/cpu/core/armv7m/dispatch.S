@@ -26,9 +26,21 @@
 
 #include "offset.h"
 
+#if defined(__GNUC__)
 	.code 16
 	.syntax unified
 	.thumb
+#elif defined(__IASMARM__)
+	EXTERN	knl_tmp_stack
+	EXTERN	knl_dispatch_disabled
+	EXTERN	knl_ctxtsk
+	EXTERN	knl_schedtsk
+	EXTERN	knl_lowpow_discnt
+	EXTERN	low_pow
+
+	SECTION .text:CODE(2)
+	THUMB
+#endif
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -62,11 +74,16 @@
 #define	EXPRN_NO_FPU	0x00000010	/* FPU usage flag  0:use 1:no use */
 #endif
 
+#if defined(__GNUC__)
 	.text
 	.align 2
 	.thumb
 	.thumb_func
 	.globl Csym(knl_dispatch_entry)
+#elif defined(__IASMARM__)
+	THUMB
+	PUBLIC	Csym(knl_dispatch_entry)
+#endif
 
 Csym(knl_dispatch_entry):	
 /*----------------- Start dispatch processing. -----------------*/
@@ -164,4 +181,9 @@ l_dispatch_200:			//  End of FPU register restore process
 
 	bx	lr
 
+#if defined(__GNUC__)
+	.end
+#elif defined(__IASMARM__)
+	END
+#endif
 #endif /* CPU_CORE_ARMV7M */

@@ -26,7 +26,8 @@
 /*
  * Exception handler table (RAM)
  */
-EXPORT UW exchdr_tbl[N_SYSVEC + N_INTVEC] __attribute__ ((section (".data_vector")));
+#pragma location = ".data_vector"
+EXPORT UW exchdr_tbl[N_SYSVEC + N_INTVEC];
 
 #endif
 
