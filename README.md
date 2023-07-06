@@ -10,7 +10,7 @@ Please download from the following branch for each development board.
 
 | Branch | CPU | Board | Network Devie | Development environment |
 | ------ | --- | ----- | ------------- | ----------------------- |
-| adbun_m3hqf10b | TMPM3HQF10B | AdBun-M3HQF10B | - | EWARM |
+| ewarm-adbun_m3hqf10b | TMPM3HQF10B | AdBun-M3HQF10B | - | EWARM |
 | nucleo_stm32l476_lwip | STM32L476 | Nucleo-64 | EthernetShield2 | STM32CubeIDE |
 | ewarm-sbk_m4kn | TMPM4KNFYAFG | SBK-M4KN(ES) | - | EWARM |
 | ewarm-sbk_m4mn | TMPM4MNFYAFG | SBK-M4KN(ES) | - | EWARM |
