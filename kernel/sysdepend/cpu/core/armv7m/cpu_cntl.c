@@ -192,6 +192,7 @@ EXPORT void knl_force_dispatch( void )
 EXPORT void knl_dispatch( void )
 {
 	*(_UW*)SCB_ICSR = ICSR_PENDSVSET;	/* pendsv exception */
+	Asm("DSB");
 }
 
 #endif /* CPU_CORE_ARMV7M */

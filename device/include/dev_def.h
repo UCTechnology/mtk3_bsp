@@ -1,4 +1,4 @@
-﻿/*
+/*
  *----------------------------------------------------------------------
  *    Device Driver for μT-Kernel 3.0
  *
@@ -21,7 +21,7 @@
 
 #include <config_device.h>
 
-#if USE_SDEV_DRV		/* Use Sample device driver */
+#if USE_SDEV_DRV			/* Use Sample device driver */
 
 #if DEVCNF_USE_SER && DEV_SER_UNITNM	/* Use Serial communication device */
 #define DEV_SER_ENABLE		1
@@ -41,11 +41,11 @@
 #define DEV_IIC_ENABLE		0
 #endif	/* DEVCNF_USE_IIC */
 
-#else				/* Do not use sample device driver */
+#else					/* Do not use sample device driver */
 
-#define DEV_SER_ENABLE		0		// Serial communication device 
-#define DEV_ADC_ENABLE		0		// A/D conversion device
-#define DEV_IIC_ENABLE		0		// I2C communication device
+#define DEV_SER_ENABLE		0	// Serial communication device 
+#define DEV_ADC_ENABLE		0	// A/D conversion device
+#define DEV_IIC_ENABLE		0	// I2C communication device
 
 #endif	/* USE_SDEV_DRV */
 #endif	/* __DEVINC_DEVICE_H__ */

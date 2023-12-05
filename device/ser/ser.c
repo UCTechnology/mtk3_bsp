@@ -1,6 +1,6 @@
-﻿/*
+/*
  *----------------------------------------------------------------------
- *    Device Driver for μT-Kernel 3.0
+ *    Device Driver for micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2020-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
@@ -8,6 +8,11 @@
  *
  *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modified by UC Technology at 2023/09/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 #include <sys/machine.h>
@@ -113,6 +118,7 @@ LOCAL ER set_atr_size(T_DEVREQ *req)
 	return E_OK;
 }
 
+IMPORT	ER	serial_err( W port );
 LOCAL ER read_atr(T_SER_DCB *p_dcb, T_DEVREQ *req)
 {
 	UINT	imask;
@@ -140,8 +146,7 @@ LOCAL ER read_atr(T_SER_DCB *p_dcb, T_DEVREQ *req)
 			break;
 		case TDN_SER_COMERR:		/* Communication Error */
 			DI(imask);
-			*(UW*)req->buf = p_dcb->com_error;
-			p_dcb->com_error = 0;
+			*(UW*)req->buf = serial_err( p_dcb->unit );
 			EI(imask);
 			break;
 		case TDN_SER_BREAK:		/* Send Break */
@@ -193,99 +198,45 @@ LOCAL ER write_atr(T_SER_DCB *p_dcb, T_DEVREQ *req)
 /*　Device-specific data control
  */
 
+IMPORT	ER	serial_in( W port, UB *buf, W len, W *alen, W tmout );
 LOCAL ER read_data( T_SER_DCB *p_dcb, T_DEVREQ *req)
 {
-	T_SER_BUFF	*p_buff;
-	UW		tail;
 	UB		*pd;
 	SZ		rsize;
 	ER		err;
 
-	p_buff	= &p_dcb->rcv_buff;
-	tail	= p_buff->tail;
 	pd	= req->buf;
 	rsize	= req->size;
-	err	= E_OK;
 
 	if(rsize != 0 ) {		/* size != 0 : Receive data */
-		while(rsize) {
-			DisableInt(p_dcb->intno_rcv);	/* Disable Receive Int. */
-			if(p_buff->top != tail) {
-				*pd++ = p_buff->data[tail++];
-				if(tail >= DEVCONF_SER_BUFFSIZE ) tail = 0;
-				p_buff->tail = tail;
-				EnableInt(p_dcb->intno_rcv, p_dcb->int_pri);	/* Enable Receive Int. */
-				rsize--;
-			} else {
-				p_buff->wait_tskid = tk_get_tid();
-				EnableInt(p_dcb->intno_rcv, p_dcb->int_pri);	/* Enable Receive Int. */
-				err = tk_slp_tsk(p_dcb->rcv_tmo);
-				if( err != E_OK) break;
-			}
-		}
-		req->asize = req->size - rsize;
+		err = serial_in( p_dcb->unit, pd, rsize, &(req->asize), p_dcb->rcv_tmo );
 	} else {		/* size = 0: Get the number of readable data */
-		/* Disable Receive Int. */
-		rsize = p_buff->top - p_buff->tail;
-		/* Enable Receive Int. */
-		if(rsize < 0) {
-			rsize += DEVCONF_SER_BUFFSIZE;
-		}
-		req->asize = rsize;
+		DisableInt(p_dcb->intno_rcv);			/* Disable Receive Int. */
+		req->asize = getDataSizeInRxBuf(p_dcb->unit);
+		EnableInt(p_dcb->intno_rcv, p_dcb->int_pri);	/* Enable Receive Int. */
+		err = E_OK;
 	}
 
 	return err;
 }
 
+IMPORT	ER	serial_out( W port, UB *buf, W len, W *alen, W tmout );
 LOCAL ER write_data( T_SER_DCB *p_dcb, T_DEVREQ *req)
 {
-	T_SER_BUFF	*p_buff;
-	UW		next;
-	UB		*pd;
-	INT		ssize;
-	ER		err;
-	BOOL		s;
+	UB	*pd;
+	INT	ssize;
+	ER	err;
 
-	p_buff	= &p_dcb->snd_buff;
 	pd	= req->buf;
 	ssize	= req->size;
-	err	= E_OK;
 
-	if(ssize != 0) {		/* size != 0 : Send data */
-		while(ssize) {
-			next = p_buff->top + 1;
-			if(next >= DEVCONF_SER_BUFFSIZE) next = 0;
-			
-			DisableInt(p_dcb->intno_snd);	/* Disable Send Int. */
-			if(next != p_buff->tail) {
-				s = FALSE;
-				if(p_buff->top == p_buff->tail) {
-					s = (E_OK == dev_ser_llctl( p_dcb->unit, LLD_SER_SEND, *pd));
-				}
-				if(s) {		/* Successful transmission. */
-					pd++;
-				} else {	/* FIFO is full. */
-					p_buff->data[p_buff->top] = *pd++;
-					p_buff->top = next;
-				}
-				EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable Send Int. */
-				ssize--;
-			} else {
-				p_buff->wait_tskid = tk_get_tid();
-				EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable Send Int. */
-				err = tk_slp_tsk(p_dcb->snd_tmo);
-				if(err != E_OK) break;
-			}
-		}
-		req->asize = req->size - ssize;
+	if(ssize != 0) {	/* size != 0 : Send data */
+		err = serial_out( p_dcb->unit, pd, ssize, &(req->asize), p_dcb->snd_tmo );
 	} else {		/* size = 0: Get the number of writable data */
 		DisableInt(p_dcb->intno_snd);			/* Disable Send Int. */
-		ssize = p_buff->top - p_buff->tail;
+		req->asize = TX_FIFO_SIZE - getTxSizeInFifo(p_dcb->unit);
 		EnableInt(p_dcb->intno_snd, p_dcb->int_pri);	/* Enable send Int. */
-		if(ssize < 0) {
-			ssize += DEVCONF_SER_BUFFSIZE;
-		}
-		req->asize = DEVCONF_SER_BUFFSIZE - ssize;
+		err = E_OK;
 	}
 
 	return err;
@@ -306,8 +257,7 @@ ER dev_ser_openfn( ID devid, UINT omode, T_MSDI *p_msdi)
 
 	/* Device Open operation */
 	p_dcb->omode = omode;
-	buff_init(&p_dcb->snd_buff);
-	buff_init(&p_dcb->rcv_buff);
+	initRxBuf(p_dcb->unit);
 
 	err = dev_ser_llctl(p_dcb->unit, LLD_SER_START, 0);
 

@@ -224,7 +224,7 @@ SYSCALL ER tk_wup_tsk( ID tskid )
 	} else if ( (state & TS_WAIT) != 0 && tcb->wspec == &knl_wspec_slp ) {
 		knl_wait_release_ok(tcb);
 
-	} else if ( tcb->wupcnt == INT_MAX ) {
+	} else if ( tcb->wupcnt == TK_WAKEUP_MAXCNT ) {
 		ercd = E_QOVR;
 	} else {
 		++tcb->wupcnt;

@@ -1,13 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2020 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modified by UC Technology at 2023/09/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 #include <sys/machine.h>
@@ -26,9 +31,15 @@
 
 #include "offset.h"
 
-	.code 16
-	.syntax unified
-	.thumb
+	EXTERN	knl_tmp_stack
+	EXTERN	knl_dispatch_disabled
+	EXTERN	knl_ctxtsk
+	EXTERN	knl_schedtsk
+	EXTERN	knl_lowpow_discnt
+	EXTERN	low_pow
+
+	SECTION .text:CODE(2)
+	THUMB
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -62,12 +73,8 @@
 #define	EXPRN_NO_FPU	0x00000010	/* FPU usage flag  0:use 1:no use */
 #endif
 
-	.text
-	.align 2
-	.thumb
-	.thumb_func
-	.globl Csym(knl_dispatch_entry)
-
+	THUMB
+	PUBLIC	Csym(knl_dispatch_entry)
 Csym(knl_dispatch_entry):	
 /*----------------- Start dispatch processing. -----------------*/
 	ldr	r0, =Csym(knl_dispatch_disabled)
@@ -128,6 +135,7 @@ l_dispatch_110:
 
 	ldr	r2, =0
 	msr	basepri, r2			// Enable interruput
+	ISB
 
 	b	l_dispatch_110
 
@@ -161,7 +169,9 @@ l_dispatch_200:			//  End of FPU register restore process
 	str	r1, [r0]			// Dispatch enable
 
 	msr	basepri, r1			// Enable inperrupt
+	ISB
 
 	bx	lr
 
+	END
 #endif /* CPU_CORE_ARMV7M */

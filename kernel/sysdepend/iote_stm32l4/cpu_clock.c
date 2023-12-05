@@ -1,21 +1,21 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
 
 #include <sys/machine.h>
-#ifdef CPU_STM32L4
+#ifdef IOTE_STM32L4
 
 /*
- *	cpu_clock.c (STM32L4)
+ *	cpu_clock.c (STM32L4 IoT-Engine)
  *	Clock Setting
  */
 
@@ -96,4 +96,4 @@ EXPORT void shutdown_clock(void)
 
 }
 
-#endif /* CPU_STM32L467 */
+#endif /* IOTE_STM32L4 */

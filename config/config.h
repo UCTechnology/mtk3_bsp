@@ -1,13 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.05
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/11.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modified by UC Technology at 2023/09/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 
@@ -24,10 +29,7 @@
 	Define the system target name. Alternatively, define the target name 
 	in the development environment.
  */
-//#define _IOTE_M367_
-//#define _IOTE_RX231_
-//#define _IOTE_STM32L4_
-//#define _IOTE_RZA2M_
+//#define _ADBUN_M4GR_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration
@@ -86,7 +88,7 @@
 
 /*---------------------------------------------------------------------- */
 /* System function selection
-	1: Use function.  0: No use function.
+ *  1: Use function.  0: No use function.
  */
 #define USE_NOINIT		(0)	/* Use zero-clear bss section */
 #define USE_IMALLOC		(1)	/* Use dynamic memory allocation */
@@ -129,7 +131,7 @@
 
 /*---------------------------------------------------------------------- */
 /* Use T-Monitor Compatible API Library  & Message to terminal.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define	USE_TMONITOR		(1)	/* T-Monitor API */
 #define USE_SYSTEM_MESSAGE	(1)	/* System Message */
@@ -138,20 +140,20 @@
 
 /*---------------------------------------------------------------------- */
 /* Use Co-Processor.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define	USE_FPU			(0)	/* Use FPU */
 #define	USE_DSP			(0)	/* Use DSP */
 
 /*---------------------------------------------------------------------- */
 /* Use Physical timer.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
-#define USE_PTMR		(1)	/* Use Physical timer */
+#define USE_PTMR		(0)	/* Use Physical timer */
 
 /*---------------------------------------------------------------------- */
 /* Use Sample device driver.
-　*  1: Valid  0: Invalid
+ *  1: Valid  0: Invalid
  */
 #define USE_SDEV_DRV		(1)	/* Use Sample device driver */
 

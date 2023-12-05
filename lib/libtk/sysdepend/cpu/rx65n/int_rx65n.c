@@ -1,12 +1,12 @@
 ﻿/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/04.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -135,6 +135,7 @@ EXPORT void knl_disable_gint( UINT intno)
 	out_w( gen, in_w(gen)& ~(1<<fctno));
 	EI(imask);
 }
+
 /*
  *  Clear group interrupts
  */
@@ -155,5 +156,49 @@ EXPORT void knl_clear_gint( UINT intno)
 	out_w( gcr, in_w(gcr)| (1<<fctno));
 	EI(imask);
 }
+
+/*
+ *  Check group interrupts
+ */
+EXPORT BOOL knl_check_gint( UINT intno)
+{
+	UW	grp;
+	UW	fctno;
+	UINT	intno_o;
+
+	if( intno < INTNO_GROUP_TOP + 32) {
+		intno_o = INTNO_GROUPBE0;
+		grp = ICU_GRPBE0;
+		fctno = intno - INTNO_GROUP_TOP;
+	} else if( intno < INTNO_GROUP_TOP + 64) {
+		intno_o = INTNO_GROUPBL0;
+		grp = ICU_GRPBL0;
+		fctno = intno - (INTNO_GROUP_TOP + 32);
+	} else if( intno < INTNO_GROUP_TOP + 96) {
+		intno_o = INTNO_GROUPBL1;
+		grp = ICU_GRPBL1;
+		fctno = intno - (INTNO_GROUP_TOP + 64);
+	} else if( intno < INTNO_GROUP_TOP + 128) {
+		intno_o = INTNO_GROUPBL2;
+		grp = ICU_GRPBL2;
+		fctno = intno - (INTNO_GROUP_TOP + 96);
+	} else if( intno < INTNO_GROUP_TOP + 160) {
+		intno_o = INTNO_GROUPAL0;
+		grp = ICU_GRPAL0;
+		fctno = intno - (INTNO_GROUP_TOP + 128);
+	} else if( intno < INTNO_GROUP_TOP + 192) {
+		intno_o = INTNO_GROUPAL1;
+		grp = ICU_GRPAL1;
+		fctno = intno - (INTNO_GROUP_TOP + 160);
+	} else {
+		return FALSE;
+	}
+
+	if((*(_UB*)(ICU_IR(intno_o)))==0) {
+		grp = 0;
+	}
+	return (in_w(grp) & (1<<fctno) != 0);
+}
+
 #endif /* USE_GROUP_INT */
 #endif /* CPU_RX65N */

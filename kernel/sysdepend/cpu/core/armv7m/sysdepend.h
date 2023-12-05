@@ -1,13 +1,18 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
+ *----------------------------------------------------------------------
+ *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modified by UC Technology at 2023/09/27.
+ *
+ *    Copyright (c) 2023 UC Technology. All Rights Reserved.
  *----------------------------------------------------------------------
  */
 
@@ -46,6 +51,7 @@ IMPORT void knl_dispatch_to_schedtsk(void);	/* force dispatch */
 /*
  * Interrupt Control (interrupt.c)
  */
+#pragma location = ".data_vector"
 IMPORT	UW exchdr_tbl[];			/* Exception handler table (RAM) */
 
 IMPORT void knl_systim_inthdr(void);		/* System-timer Interrupt handler */

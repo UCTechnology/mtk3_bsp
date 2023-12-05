@@ -1,12 +1,12 @@
-﻿/*
+/*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.06.B0
+ *    micro T-Kernel 3.00.06
  *
  *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2022/02.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -122,7 +122,9 @@
 /*
  * Number of Interrupt vectors
  */
-#define N_INTVEC		256	/* Number of Interrupt vectors */
+
+#define	N_INTVEC0	256		/* INTVEC0 is the number of interrupts other than group interrupts */
+#define N_INTVEC	(N_INTVEC0)	/* RX231 has no group interrupt, INTVEC and INTVEC0 are always equal. */
 
 /*
  * Interrupt Priority Levels
@@ -350,8 +352,8 @@
 /*
  * Coprocessor
  */
-#define CPU_HAS_FPU			1
-#define CPU_HAS_DPS			1
+#define CPU_HAS_FPU		1
+#define CPU_HAS_DSP		1
 
 /*
  *  Number of coprocessors to use. Depends on user configuration
