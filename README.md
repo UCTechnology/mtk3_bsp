@@ -8,20 +8,21 @@ A set of μT-Kernel 3.0, device drivers, and development environment projects co
 Please download from the following branch for each development board.  
 以下の開発ボード毎のブランチからダウンロードしてください。
 
-| Branch                | CPU          | Board                | Network Devie   | Development environment |
-| --------------------- | ------------ | -------------------- | --------------- | ----------------------- |
-| ewarm-adbun_m4nrf20fg | TMPM4NRF20FG | AdBun-M4NR           | -               | EWARM                   |
-| ewarm-adbun_m4grf20fg | TMPM4GRF20FG | AdBun-M4GR           | -               | EWARM                   |
-| ewarm-adbun_m3hqf10b  | TMPM3HQF10B  | AdBun-M3HQF10B       | -               | EWARM                   |
-| nucleo_stm32l476_lwip | STM32L476    | Nucleo-64            | EthernetShield2 | STM32CubeIDE            |
-| ewarm-sbk_m4kn        | TMPM4KNFYAFG | SBK-M4KN(ES)         | -               | EWARM                   |
-| ewarm-sbk_m4mn        | TMPM4MNFYAFG | SBK-M4KN(ES)         | -               | EWARM                   |
-| cy8ckit_cy8c6         | CY8C624A     | CY8CKIT-062S2-43012  | -               | ModusToolbox            |
-| nucleo_stm32l476      | STM32L476    | Nucleo-64            | -               | STM32CubeIDE            |
-| nucleo_stm32h723      | STM32H723    | Nucleo-144           | -               | STM32CubeIDE            |
-| rtb_rx65n             | RX65N        | Renesas Target Board | -               | e2Studio                |
-| rsk_rx65n             | RX65N        | Renesas Starter Kit+ | -               | e2Studio                |
-| pico_rp2040           | RP2040       | Raspberry Pi Pico    | -               | Eclipse CDT             |
+| Branch                     | CPU          | Board                | Network Devie   | Development environment |
+| -------------------------- | ------------ | -------------------- | --------------- | ----------------------- |
+| ewarm-adbun_m4nrf20fg-lwip | TMPM4NRF20FG | AdBun-M4NR           | onboard         | EWARM                   |
+| ewarm-adbun_m4nrf20fg      | TMPM4NRF20FG | AdBun-M4NR           | -               | EWARM                   |
+| ewarm-adbun_m4grf20fg      | TMPM4GRF20FG | AdBun-M4GR           | -               | EWARM                   |
+| ewarm-adbun_m3hqf10b       | TMPM3HQF10B  | AdBun-M3HQF10B       | -               | EWARM                   |
+| nucleo_stm32l476_lwip      | STM32L476    | Nucleo-64            | EthernetShield2 | STM32CubeIDE            |
+| ewarm-sbk_m4kn             | TMPM4KNFYAFG | SBK-M4KN(ES)         | -               | EWARM                   |
+| ewarm-sbk_m4mn             | TMPM4MNFYAFG | SBK-M4KN(ES)         | -               | EWARM                   |
+| cy8ckit_cy8c6              | CY8C624A     | CY8CKIT-062S2-43012  | -               | ModusToolbox            |
+| nucleo_stm32l476           | STM32L476    | Nucleo-64            | -               | STM32CubeIDE            |
+| nucleo_stm32h723           | STM32H723    | Nucleo-144           | -               | STM32CubeIDE            |
+| rtb_rx65n                  | RX65N        | Renesas Target Board | -               | e2Studio                |
+| rsk_rx65n                  | RX65N        | Renesas Starter Kit+ | -               | e2Studio                |
+| pico_rp2040                | RP2040       | Raspberry Pi Pico    | -               | Eclipse CDT             |
 ---
 
 ## ライセンス
@@ -38,7 +39,7 @@ T-License2.2の内容は以下をご覧ください。
 
 本リポジトリの以下のブランチには、UCTが開発したソースコードが含まれます。
 
-- ewarm-adbun-m4nrf20fg : AdBun-M4NRF20FG用ボードサポートパッケージ
+- ewarm-adbun_m4nrf20fg-lwip : AdBun-M4NRF20FG用ボードサポートパッケージ (ネットワーク対応)
 
 UCTは、UCTが開発したソースコードを含めて、本リポジトリに含まれるソースコードについてT-License2.2第３条第3項に定める利用を認めます。ただし、UCTが開発したソースコードについて、T-License2.2第３条第3項の第４号、第５号における有償での再配布は認めません。
 
