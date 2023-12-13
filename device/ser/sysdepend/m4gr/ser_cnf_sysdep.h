@@ -29,6 +29,8 @@
 #define	DEVCNF_UART1_INTPRI	6
 #define	DEVCNF_UART2_INTPRI	6
 #define	DEVCNF_UART3_INTPRI	6
+#define	DEVCNF_UART4_INTPRI	6
+#define	DEVCNF_UART5_INTPRI	6
 
 /* Debug option
  *	Specify the device used by T-Monitor.

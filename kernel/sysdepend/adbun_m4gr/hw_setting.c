@@ -38,16 +38,16 @@ LOCAL void port_initialize(void);
  */
 EXPORT void knl_startup_hw(void)
 {
-    /* Semi-Independent Watchdog Timer(SIWD) Disable */
-	*SIWDxEN(0) = SIWDEN_Val;			// TSB_SIWD0->EN = SIWDEN_Val;
-	*SIWDxCR(0) = SIWDCR_Val;			// TSB_SIWD0->CR = SIWDCR_Val;
+	/* Semi-Independent Watchdog Timer(SIWD) Disable */
+	*SIWDxEN(0) = SIWDEN_Val;		// TSB_SIWD0->EN = SIWDEN_Val;
+	*SIWDxCR(0) = SIWDCR_Val;		// TSB_SIWD0->CR = SIWDCR_Val;
 
 	startup_clock();
 
 	/*------ UART, PORT Enable ------*/
 	*CGPROTECT = 0x000000C1;		// UNLOCK, CG register write protection
 	*CGFSYSMENA |= CGFSYSMENA_UART0;
-	*CGFSYSMENB = 0x003FFFFC;   /* PORT Enable */
+	*CGFSYSMENB  = 0x003FFFFC;		/* PORT Enable */
 	*CGPROTECT = 0x00000000;		// LOCK, CG register write protection
 
 	/*------ Port ------*/
@@ -63,7 +63,7 @@ EXPORT void knl_startup_hw(void)
 
 
 #define ELOSC_WUP_TIME		((UD)(5000))	/* Warm up time(us) */
-#define ELOSC_CLOCK			((UD)(32768))	/* Clock(Hz) : "X2" */
+#define ELOSC_CLOCK		((UD)(32768))	/* Clock(Hz) : "X2" */
 #if defined (__ICCARM__)
 #pragma optimize=low
 #else
@@ -79,9 +79,9 @@ LOCAL	void	external_losc_enable(void)
 		/* Please check the settings of ELOSC_WUP_TIME and ELOSC_CLOCK. */
 	}
 	*CGWUPLCR  = ((UW)wupTime & 0xFFFFFFF0ul) << 8;	/* set CGWUPLCR.WUPTL */
-    *RLMLOSCCR = (RLMLOSCCR_XTEN_OSC | RLMLOSCCR_DRCOSCL_ELOSC);		/* set LOSC Enable */
-    work = (*CGWUPLCR & CGWUPLCR_WUPTL_MASK);
-    *CGWUPLCR = (UW)(work | CGWUPLCR_WULON_START);		/* start Warm-up */
+	*RLMLOSCCR = (RLMLOSCCR_XTEN_OSC | RLMLOSCCR_DRCOSCL_ELOSC);	/* set LOSC Enable */
+	work = (*CGWUPLCR & CGWUPLCR_WUPTL_MASK);
+	*CGWUPLCR = (UW)(work | CGWUPLCR_WULON_START);	/* start Warm-up */
 	/* wait for warm-up */
 	while( (*CGWUPLCR & CGWUPLCR_WULEF_STAT) != CGWUPLCR_WULEF_END );
 }
@@ -179,7 +179,7 @@ _UW* CONST reg[PORT_NO][REG_NO] = {	/* List of register addresses. */
 		PxOD('Y'), PxPUP('Y'), PxPDN('Y'), PxIE('Y')	},
 };
 CONST UW val[PORT_NO][REG_NO] = {	/* List of values to be set in registers. */
-		/* DATA     CR    | FR1     FR2     FR3     FR4     FR5     FR6     FR7     FR8   |   OD     PUP     PDN   |  IE */
+	/* DATA     CR    | FR1     FR2     FR3     FR4     FR5     FR6     FR7     FR8   |   OD     PUP     PDN   |  IE */
  /*A*/	{ 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul },
  /*B*/	{ 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul },
  /*C*/	{ 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul, 0x00ul,  0x00ul, 0x00ul, 0x00ul, 0x00ul },

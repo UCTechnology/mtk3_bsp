@@ -64,7 +64,7 @@ EXPORT void startup_clock(void)
 	/* It waits until it becomes the termination of high-speed oscillation warming up(= 0). */
 	while( *CGWUPHCR & CGWUPHCR_WUEF_STAT );
 
-    /* It is high-speed oscillation selection for fosc to the exterior (EHOSC). */
+	/* It is high-speed oscillation selection for fosc to the exterior (EHOSC). */
 	*CGOSCCR |= CGOSCCR_OSCSEL_EHOSC;
 	/* Confirm OSCF=="1" */
 	while( !(*CGOSCCR & CGOSCCR_OSCF_STAT) );
