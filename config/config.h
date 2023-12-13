@@ -9,7 +9,7 @@
  *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
- *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modifications: Adapted to the AdBun-M4NR.
  *    Modified by UC Technology at 2023/09/27.
  *
  *    Copyright (c) 2023 UC Technology. All Rights Reserved.
@@ -29,7 +29,7 @@
 	Define the system target name. Alternatively, define the target name 
 	in the development environment.
  */
-//#define _ADBUN_M4GR_
+//#define _ADBUN_M4NR_
 
 /*---------------------------------------------------------------------- */
 /* SYSCONF : micro T-Kernel system configuration

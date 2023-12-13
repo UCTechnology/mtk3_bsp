@@ -9,7 +9,7 @@
  *    Released by TRON Forum(http://www.tron.org) at 2022/02.
  *
  *----------------------------------------------------------------------
- *    Modifications: Adapted to the AdBun-M4GR.
+ *    Modifications: Adapted to the AdBun-M4NR.
  *    Modified by UC Technology at 2023/09/27.
  *
  *    Copyright (c) 2023 UC Technology. All Rights Reserved.

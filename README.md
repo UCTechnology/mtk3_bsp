@@ -10,6 +10,7 @@ Please download from the following branch for each development board.
 
 | Branch                | CPU          | Board                | Network Devie   | Development environment |
 | --------------------- | ------------ | -------------------- | --------------- | ----------------------- |
+| ewarm-adbun_m4nrf20fg | TMPM4NRF20FG | AdBun-M4NR           | -               | EWARM                   |
 | ewarm-adbun_m4grf20fg | TMPM4GRF20FG | AdBun-M4GR           | -               | EWARM                   |
 | ewarm-adbun_m3hqf10b  | TMPM3HQF10B  | AdBun-M3HQF10B       | -               | EWARM                   |
 | nucleo_stm32l476_lwip | STM32L476    | Nucleo-64            | EthernetShield2 | STM32CubeIDE            |
@@ -37,7 +38,7 @@ T-License2.2の内容は以下をご覧ください。
 
 本リポジトリの以下のブランチには、UCTが開発したソースコードが含まれます。
 
-- ewarm-adbun_m4grf20fg : AdBun-M4GRF20FG用ボードサポートパッケージ
+- ewarm-adbun-m4nrf20fg : AdBun-M4NRF20FG用ボードサポートパッケージ
 
 UCTは、UCTが開発したソースコードを含めて、本リポジトリに含まれるソースコードについてT-License2.2第３条第3項に定める利用を認めます。ただし、UCTが開発したソースコードについて、T-License2.2第３条第3項の第４号、第５号における有償での再配布は認めません。
 
