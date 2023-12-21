@@ -50,7 +50,7 @@
  * Enable interrupt nesting
  *	Enable the interrupt that has a higher priority than 'level.'
  */
-#define ENABLE_INTERRUPT_UPTO(level)	{ set_basepri(0); }
+#define ENABLE_INTERRUPT_UPTO(level)	{ set_basepri(INTPRI_VAL(level)); }
 
 /*
  *  Task-independent control

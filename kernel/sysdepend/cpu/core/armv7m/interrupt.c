@@ -26,7 +26,11 @@
 /*
  * Exception handler table (RAM)
  */
+#if defined (CPU_XMC7200)
+EXPORT UW exchdr_tbl[N_SYSVEC + CORE_EXT_INTVEC + CORE_SOFT_INTVEC] __attribute__ ((section (".data_vector")));
+#else
 EXPORT UW exchdr_tbl[N_SYSVEC + N_INTVEC] __attribute__ ((section (".data_vector")));
+#endif
 
 #endif
 
@@ -34,8 +38,11 @@ EXPORT UW exchdr_tbl[N_SYSVEC + N_INTVEC] __attribute__ ((section (".data_vector
 /*
  * HLL(High level programming language) Interrupt Handler
  */
-
+#if defined (CPU_XMC7200)
+Noinit(EXPORT FP knl_inthdr_tbl[N_INTVEC]);	/* HLL Interrupt Handler Table */
+#else
 Noinit(LOCAL FP knl_inthdr_tbl[N_INTVEC]);	/* HLL Interrupt Handler Table */
+#endif
 
 EXPORT void knl_hll_inthdr(void)
 {

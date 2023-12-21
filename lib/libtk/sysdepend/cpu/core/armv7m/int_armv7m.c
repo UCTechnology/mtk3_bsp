@@ -36,6 +36,8 @@
 EXPORT void set_basepri(UW intsts)
 {	
 	Asm("msr basepri, %0":: "r"(intsts));
+	Asm("DSB");
+	Asm("ISB");
 }
 
 /*

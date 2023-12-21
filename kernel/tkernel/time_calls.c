@@ -111,16 +111,35 @@ SYSCALL ER tk_get_otm( SYSTIM *pk_tim )
 #endif /* USE_FUNC_TK_GET_OTM */
 
 #if USE_DBGSPT
+#ifdef USE_FUNC_TD_GET_UTC
+/*
+ * Refer system clock
+ */
+SYSCALL ER td_get_utc( SYSTIM *tim, UW *ofs )
+{
+	BEGIN_DISABLE_INTERRUPT;
+	*ofs = knl_get_hw_timer_nsec();
+	*tim = knl_toSYSTIM(ll_add(knl_current_time, knl_real_time_ofs));
+	END_DISABLE_INTERRUPT;
+
+	return E_OK;
+}
+#endif /* USE_FUNC_TD_GET_UTC */
+
 #ifdef USE_FUNC_TD_GET_TIM
 /*
  * Refer system clock
  */
 SYSCALL ER td_get_tim( SYSTIM *tim, UW *ofs )
 {
+	LSYSTIM		utc_time;
+
 	BEGIN_DISABLE_INTERRUPT;
 	*ofs = knl_get_hw_timer_nsec();
-	*tim = knl_toSYSTIM(ll_add(knl_current_time, knl_real_time_ofs));
+	utc_time = ll_add(knl_current_time, knl_real_time_ofs);
 	END_DISABLE_INTERRUPT;
+	
+	*tim = knl_toSYSTIM(ll_sub(utc_time, DIFF_TRON_UTC));
 
 	return E_OK;
 }

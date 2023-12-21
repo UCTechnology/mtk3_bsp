@@ -128,6 +128,7 @@ l_dispatch_110:
 
 	ldr	r2, =0
 	msr	basepri, r2			// Enable interruput
+	ISB
 
 	b	l_dispatch_110
 
@@ -161,6 +162,7 @@ l_dispatch_200:			//  End of FPU register restore process
 	str	r1, [r0]			// Dispatch enable
 
 	msr	basepri, r1			// Enable inperrupt
+	ISB
 
 	bx	lr
 

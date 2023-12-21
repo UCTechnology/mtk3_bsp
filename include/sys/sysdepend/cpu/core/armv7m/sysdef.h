@@ -1,12 +1,12 @@
 /*
  *----------------------------------------------------------------------
- *    micro T-Kernel 3.00.03
+ *    micro T-Kernel 3.00.06
  *
- *    Copyright (C) 2006-2021 by Ken Sakamura.
+ *    Copyright (C) 2006-2022 by Ken Sakamura.
  *    This software is distributed under the T-License 2.2.
  *----------------------------------------------------------------------
  *
- *    Released by TRON Forum(http://www.tron.org) at 2021/03/31.
+ *    Released by TRON Forum(http://www.tron.org) at 2022/10.
  *
  *----------------------------------------------------------------------
  */
@@ -84,8 +84,6 @@
 #define	AIRCR_PRIGROUP1	0x00001000
 #define	AIRCR_PRIGROUP0	0x00000000
 
-#define CCR_USERSETMPEND	0x00000020
-
 /*
  * The number of the implemented bit width for priority value fields.
  * The LSB of (8-INTPRI_BITWIDTH) bits priority value is ignored, 
@@ -134,7 +132,7 @@
 #define NVIC_IPR(x)	(NVIC_IPR_BASE + (x))
 
 
-#ifdef CPU_CORE_ACM4F	/* ARM Cortex-M4F has FPU */
+#if defined (CPU_CORE_ACM4F) || defined(CPU_CORE_ACM7)	/* ARM Cortex-M4F or Cortex-M7 has FPU */
 /*
  * FPU (Floating point unit) register  - System control block
  */
@@ -147,7 +145,7 @@
 #define FPU_FPCCR_ASPEN		0x80000000	/* FPCCR.ASPEN */
 #define FPU_FPCCR_LSPEN		0x40000000	/* FPCCR.LSPEN */
 
-#endif  /* CPU_CORE_ACM4F */
+#endif  /* CPU_CORE_ACM4F || CPU_CORE_ACM7 */
 
 /* ------------------------------------------------------------------------ */
 /*

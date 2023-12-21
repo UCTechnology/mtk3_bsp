@@ -63,6 +63,10 @@
 #define Csym(sym) _##sym
 #endif
 
+#ifdef _EVK_XMC7200_
+#include "sysdepend/evk_xmc7200/machine.h"
+#define Csym(sym) sym
+#endif
 
 /* ===== C compiler dependencies definitions ============================= */
 

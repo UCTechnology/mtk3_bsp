@@ -1,0 +1,28 @@
+# Comment out when building the FreeRTOS version.
+../mtb_shared/freertos
+######
+
+deps
+libs
+
+# Documentation
+images
+
+# Exports, Project settings
+.mtbLaunchConfigs
+.settings
+.vscode
+
+## ignore old applicatoins
+kernel/usermain
+kernel/usermain_serial
+
+## select usermain()
+#app_program
+app_serial
+
+## not supported device driver (ADC/I2C)
+device/i2c
+device/adc
+device/include/dev_i2c.h
+device/include/dev_adc.h
